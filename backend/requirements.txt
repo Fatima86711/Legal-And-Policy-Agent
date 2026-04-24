@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+cohere
+chromadb
+langchain
+langchain-community
+sentence-transformers
+pypdf
+pdfplumber
+python-dotenv
+tiktoken
+python-multipart
+pymupdf
+pytesseract
+Pillow
+pdf2image
+

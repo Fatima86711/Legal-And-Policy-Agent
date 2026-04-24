@@ -1,0 +1,13 @@
+backend/venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/.env
+backend/vectorstore/
+backend/data/raw/
+backend/data/processed/
+# Node
+frontend/node_modules/
+frontend/dist/
+# OS
+.DS_Store
+Thumbs.db
