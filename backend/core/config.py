@@ -23,7 +23,7 @@ if not COHERE_API_KEY:
 # ── ChromaDB Settings ─────────────────────────────────────────────────────────
 CHROMA_PERSIST_DIR: str = os.getenv(
     "CHROMA_PERSIST_DIR",
-    str(BASE_DIR / "vectorstore")
+    str(BASE_DIR / "vectorstore") 
 )
 CHROMA_COLLECTION_NAME: str = "legal_documents"
 

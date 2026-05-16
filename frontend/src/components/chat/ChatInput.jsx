@@ -14,10 +14,9 @@ function generateId() {
 // ══════════════════════════════════════════════════════════════════════════════
 // CHAT INPUT COMPONENT
 // ══════════════════════════════════════════════════════════════════════════════
-export default function ChatInput() {
+export default function ChatInput({ prefillQuery = "", onPrefillConsumed }) {
   // ── Local State ─────────────────────────────────────────────────────────────
   const [inputValue, setInputValue] = useState("");
-
   // ── Store ───────────────────────────────────────────────────────────────────
   const addUserMessage    = useChatStore((s) => s.addUserMessage);
   const addAssistantMessage = useChatStore((s) => s.addAssistantMessage);
@@ -39,7 +38,14 @@ export default function ChatInput() {
     textarea.style.height = "auto";
     textarea.style.height = `${Math.min(textarea.scrollHeight, 160)}px`;
   }, [inputValue]);
-
+// ── Consume prefill query from parent (example card clicks) ──────────────────
+useEffect(() => {
+  if (prefillQuery && prefillQuery.trim()) {
+    setInputValue(prefillQuery);
+    textareaRef.current?.focus();
+    if (onPrefillConsumed) onPrefillConsumed();
+  }
+}, [prefillQuery]);
 
   // ══════════════════════════════════════════════════════════════════════════
   // SUBMIT HANDLER

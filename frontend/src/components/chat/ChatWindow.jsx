@@ -211,12 +211,12 @@ export default function ChatWindow({ onExampleClick }) {
   // RENDER — Empty state
   // ══════════════════════════════════════════════════════════════════════════
   if (messages.length === 0 && !isLoading) {
-    return (
-      <div className="flex-1 overflow-y-auto bg-gray-50">
-        <WelcomeScreen onExampleClick={onExampleClick} />
-      </div>
-    );
-  }
+  return (
+    <div className="flex-1 overflow-y-auto bg-gray-50">
+      <WelcomeScreen onExampleClick={onExampleClick} />
+    </div>
+  );
+}
 
 
   // ══════════════════════════════════════════════════════════════════════════
