@@ -210,13 +210,15 @@ export default function Home() {
           )}
 
           {/* ── Chat window — grows to fill remaining vertical space ──────── */}
-          <ChatWindow onExampleClick={handleExampleClick} />
+          <ChatWindow
+  onExampleClick={handleExampleClick}
+/>
 
           {/* ── Chat input — pinned to bottom ────────────────────────────── */}
           <ChatInput
-            prefillQuery={prefillQuery}
-            onPrefillConsumed={handlePrefillConsumed}
-          />
+  prefillQuery={prefillQuery}
+  onPrefillConsumed={handlePrefillConsumed}
+/>
 
         </div>
 
