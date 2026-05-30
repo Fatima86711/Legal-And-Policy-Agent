@@ -32,13 +32,6 @@ A task-oriented multi-agent AI system that accepts any legal document as input a
 - **OCR Support** — Processes scanned (image-based) legal PDFs through Tesseract at 300 DPI
 - **Graceful Degradation** — Explicitly acknowledges when uploaded documents do not contain sufficient information rather than fabricating an answer
 
-### Target Users
-
-- General public — individuals receiving contracts, notices, or agreements who cannot afford legal review
-- Small business owners — dealing with vendor agreements, employee contracts, and lease documents
-- Students and researchers — requiring analysis of legal texts for academic purposes
-- Paralegals and junior lawyers — needing rapid summaries of lengthy documents to save time
-- Real estate buyers and tenants — handling property sale deeds and rental agreements
 
 ---
 
@@ -381,13 +374,6 @@ Type your question in the chat input and press **Enter**. Use **Shift+Enter** fo
 | Comparison | "How does this contract differ from a standard agreement?" |
 | Q&A | "Can I terminate this agreement early without a penalty?" |
 
-### Interpreting Responses
-
-Every response includes a **colored task type badge**, **structured sections** with headings appropriate to the task, **source citation pills** showing which document was referenced, a **metadata bar** showing chunks used and relevance score, and a **disclaimer** that the response is informational only and not legal advice.
-
-### Managing Documents
-
-Delete any document by clicking the trash icon on its card and confirming. The document is removed from both ChromaDB and disk. Documents persist across browser refreshes because ChromaDB stores data on disk and Zustand persists the document list to localStorage.
 
 ---
 
@@ -440,6 +426,3 @@ POST /chat/query
 This project was developed as a semester project for the Artificial Intelligence course at UET Taxila, Software Engineering Department. For academic use only.
 
 ---
-
-*Legal Document Summarization Agent — UET Taxila, Software Engineering Department*
-*AI Assignment-2 (Project-Module-2) | Dr. Kanwal Yousaf | 23-SE-13 · 23-SE-39*
