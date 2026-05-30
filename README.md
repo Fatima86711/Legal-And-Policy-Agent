@@ -88,15 +88,6 @@ The system is organized into six main components arranged in a two-path pipeline
     └─────────────────┘
 ```
 
-### Agent Roles and Responsibilities
-
-**Coordinator Agent** (`agents/coordinator.py`) — The central orchestrator implementing the Orchestrator-Workers pattern from Anthropic (2024). It receives raw user queries, validates them, classifies them into task types using Cohere Command-R at `temperature=0.0`, selects task-specific retrieval configuration, and sequentially dispatches to the Retrieval Agent and Explainer Agent.
-
-**Document Retrieval Agent** (`agents/retrieval_agent.py`) — Performs semantic search over ChromaDB. Preprocesses the query, expands it with legal synonyms, generates embeddings via Cohere Embed v3 with `input_type="search_query"`, retrieves top-k chunks by cosine similarity, applies secondary reranking, deduplicates overlapping chunks, and returns structured results.
-
-**Legal Explainer Agent** (`agents/explainer_agent.py`) — Selects the appropriate prompt template (Summarization, Risk Assessment, or Term Explanation), fills it with the query and formatted `[Source N]` context block, calls Cohere Command-R, validates response structure, and returns a standardized dict. All templates prohibit fabricated citations and require a legal disclaimer.
-
----
 
 ## Multi-Agent Pipeline
 
