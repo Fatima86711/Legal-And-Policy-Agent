@@ -1,20 +1,6 @@
 # Legal Document Summarization Agent
 ### A Multi-Agent AI System for Legal Document Analysis, Summarization, and Policy Interpretation
 
-**University of Engineering and Technology, Taxila**
-Faculty of Telecommunication and Information Engineering — Software Engineering Department
-Course: Artificial Intelligence (AI) | Instructor: Dr. Kanwal Yousaf | Session: 2023
-
----
-
-## Group Members
-
-| Name | Registration No. |
-|------|-----------------|
-| Aneesa Ashfaq | 23-SE-13 |
-| Fatima Zafar | 23-SE-39 |
-
----
 
 ## Abstract
 
@@ -22,23 +8,6 @@ Legal documents such as contracts, rental agreements, court notices, and employm
 
 ---
 
-## Table of Contents
-
-1. [Project Overview](#project-overview)
-2. [System Architecture](#system-architecture)
-3. [Multi-Agent Pipeline](#multi-agent-pipeline)
-4. [Technology Stack](#technology-stack)
-5. [Complex Engineering Problem Mapping](#complex-engineering-problem-mapping)
-6. [Repository Structure](#repository-structure)
-7. [Setup and Installation](#setup-and-installation)
-8. [Usage Guide](#usage-guide)
-9. [API Reference](#api-reference)
-10. [Example Interactions](#example-interactions)
-11. [Experiments and Results](#experiments-and-results)
-12. [Limitations and Future Work](#limitations-and-future-work)
-13. [References](#references)
-
----
 
 ## Project Overview
 
@@ -238,19 +207,6 @@ User uploads PDF or TXT
 
 ---
 
-## Complex Engineering Problem Mapping
-
-This project satisfies WP3 and WP5 attributes of Complex Engineering Problems as required by the assessment rubric.
-
-### WP3 — Depth of Knowledge Required
-
-This system requires simultaneous competency across multiple engineering and scientific domains. These include Natural Language Processing for embedding-based semantic retrieval, demonstrated by the domain-specific pre-training research in Chalkidis et al. (2020) showing that legal-specific training significantly improves NLP task performance, and the broader LLM legal reasoning capabilities confirmed in Bommarito and Katz (2022); distributed data systems for ChromaDB vector store design and cosine similarity search; software architecture for multi-agent design following the Orchestrator-Workers pattern from Anthropic (2024); prompt engineering for legal tasks, informed by Manor and Li (2019) who found that legal simplification requires restructuring complex sentence constructions rather than vocabulary substitution alone; and legal domain knowledge for constructing templates that reflect the epistemic standards of legal analysis. The chunk size, overlap, similarity threshold, and reranking heuristics all require knowledge at the intersection of NLP, information retrieval, and legal text structure — no single field's literature covers this combination.
-
-### WP5 — Extent of Applicable Codes
-
-The system must process legal documents spanning multiple document types, regulatory frameworks, and formatting conventions. The chunking pipeline engineering decisions — separator priority lists, minimum chunk lengths, section header detection for Article, Section, Clause, Part, Chapter, Schedule, and Rule markers — are directly necessitated by the structural variety across different legal codes. A Pakistani rental agreement, a GDPR text, a court notice, and an employment contract use different heading conventions, clause numbering schemes, and document structures. The risk assessment template is specifically designed to address Pakistani legal context, where identifying one-sided clauses requires understanding common patterns in Pakistani contractual practice. The ContractNLI work of Zheng et al. (2021) confirms that understanding contractual obligations benefits from structured reasoning, which informs the structured section format of this system's risk template.
-
----
 
 ## Repository Structure
 
@@ -485,181 +441,8 @@ POST /chat/query
 
 ---
 
-## Example Interactions
 
-### Example 1 — Document Summarization
 
-**Query:** "Give me a plain-language summary of this employment contract"
-
-**Response excerpt:**
-```
-**Document Type**
-Employment Contract
-
-**Parties Involved**
-Employer: XYZ Pvt. Ltd. [Source 1]
-Employee: The undersigned individual
-
-**Key Dates**
-Start Date: 1st January 2025 [Source 2]
-Probation Period: 3 months
-
-**Plain-Language Summary**
-This agreement commits you to working 40 hours per week,
-maintaining confidentiality of company information, and
-giving 30 days written notice before resignation. [Source 3]
-
-**Disclaimer**
-This summary is for informational purposes only and does
-not constitute legal advice.
-```
-
----
-
-### Example 2 — Risk Assessment
-
-**Query:** "What are the risky or unfair clauses in this contract?"
-
-**Response excerpt:**
-```
-**Overall Risk Rating: MEDIUM**
-
-**Clause 1 — Non-Compete Restriction (High Risk)**
-Clause 8 prevents you from working in the same industry
-anywhere in Pakistan for 2 years after leaving. [Source 2]
-This is unusually broad and may not be enforceable.
-
-**Clause 2 — Unilateral Salary Deductions (Medium Risk)**
-The employer can deduct amounts for damages at their
-sole discretion without specifying a review process. [Source 4]
-
-**Questions to Ask a Lawyer Before Signing**
-1. Is a 2-year non-compete clause enforceable in Pakistan?
-2. What process applies before any salary deduction is made?
-```
-
----
-
-### Example 3 — Legal Term Explanation
-
-**Query:** "What does 'force majeure' mean in this agreement?"
-
-**Response excerpt:**
-```
-**Plain Language Definition**
-Force majeure means "acts of God" — events completely outside
-anyone's control that make it impossible to fulfil a contract. [Source 1]
-
-**Formal Legal Definition**
-An unforeseeable circumstance that prevents a party from
-fulfilling a contractual obligation, typically releasing both
-parties from liability for non-performance.
-
-**Practical Example**
-If a factory fire caused by a natural disaster prevents your
-employer from paying salaries, they may invoke force majeure
-to temporarily suspend that obligation.
-
-**Related Terms**
-Act of God, impossibility of performance, frustration of contract
-```
-
----
-
-### Example 4 — Graceful Degradation
-
-**Query:** "What does this contract say about intellectual property?" (no IP clause in document)
-
-**Response:**
-```
-The uploaded document does not contain sufficient information
-to answer this query. No clauses related to intellectual
-property ownership were found in rental_agreement.pdf.
-
-To get a complete answer, consider uploading a contract
-version that includes an intellectual property section,
-or consult a qualified legal professional.
-```
-
----
-
-## Experiments and Results
-
-### Evaluation Setup
-
-The system was evaluated using three different legal document types: a standard Pakistani rental agreement (8 pages, 54 chunks), an employment contract (12 pages, 87 chunks), and a vendor service agreement (6 pages, 41 chunks). A total of 15 test queries were submitted covering all task types. Evaluation criteria: correct task classification, retrieval relevance (top similarity score above 0.70), response structure compliance (expected section headers present), and graceful degradation behavior.
-
-### Results Summary
-
-| Task Type | Queries | Correct Classification | Avg Top Score | Structure Compliant | Fallback Correct |
-|---|---|---|---|---|---|
-| Summarization | 3 | 3/3 (100%) | 0.81 | 3/3 (100%) | N/A |
-| Risk Assessment | 3 | 3/3 (100%) | 0.85 | 3/3 (100%) | N/A |
-| Term Explanation | 3 | 3/3 (100%) | 0.78 | 3/3 (100%) | N/A |
-| Comparative Analysis | 2 | 2/2 (100%) | 0.77 | 2/2 (100%) | N/A |
-| Unknown / Off-topic | 2 | 2/2 (100%) | N/A | N/A | 2/2 (100%) |
-| Out-of-document queries | 2 | N/A | 0.31 (below threshold) | N/A | 2/2 (100%) |
-| **Total** | **15** | **13/13 (100%)** | **0.80** | **13/13 (100%)** | **4/4 (100%)** |
-
-### Key Observations
-
-**Classification Accuracy** — The few-shot routing prompt at `temperature=0.0` achieved 100% classification accuracy across all 15 test queries. Queries containing "summarize," "explain," "risky," or "compare" were routed correctly without ambiguity in every case.
-
-**Query Expansion Impact** — A query using "unfair" (without expansion) retrieved 2 relevant chunks at an average score of 0.64. The same query expanded to "unfair unreasonable one-sided clause" retrieved 5 chunks at an average score of 0.85, demonstrating the practical benefit of the legal synonym dictionary.
-
-**Risk Assessment Quality** — All 3 risk assessment responses correctly included the High / Medium / Low overall rating, listed specific clauses by number with source citations, and included the "Questions to Ask a Lawyer" section — directly serving the target user population of non-specialists.
-
-**Graceful Degradation** — All 4 fallback cases triggered correctly. Zero hallucinated citations appeared in any fallback response. Every fallback response identified the specific limitation and suggested a corrective action.
-
-**Processing Time** — Average end-to-end pipeline: 3.1 seconds (retrieval tasks), 2.7 seconds (explanation tasks), 4.3 seconds (comparison tasks). OCR ingestion of a 15-page scanned document completed in 47 seconds at 300 DPI.
-
----
-
-## Limitations and Future Work
-
-### Current Limitations
-
-**English-only processing** — The system currently handles English-language legal documents only. Pakistani legal documents are frequently in Urdu or mixed Urdu-English. Extending OCR and embedding support to Urdu would dramatically expand utility for the target user population.
-
-**Prompt-level citation enforcement only** — The system instructs the model to include `[Source N]` citations after every factual claim but does not enforce this at the post-processing level. Occasional paragraphs appear without inline citations. A post-generation parser validating citation density would fully close this gap.
-
-**Single-document comparison limitation** — The Retrieval Agent does not explicitly target one document per subject in comparison queries. If one document dominates similarity scores, comparisons become one-sided.
-
-**No real-time legal updates** — The knowledge base is bounded entirely by what the user uploads. Newly enacted legislation or recent court rulings are not accessible.
-
-**OCR quality dependence** — Accuracy degrades for very low-resolution scans, handwritten annotations, or complex multi-column layouts common in old Pakistani legal documents.
-
-### Future Work
-
-**Urdu language support** — Integrating Urdu-capable OCR and a multilingual embedding model would extend the system to the full range of Pakistani legal document formats.
-
-**Post-generation citation validation** — A formatter module that identifies uncited sentences and flags or removes them would achieve fully enforced mandatory citation across all task types.
-
-**Risk clause database** — A structured database of known problematic clause patterns in Pakistani contracts would allow the Risk Assessment Agent to perform pattern-matching in addition to LLM-based identification.
-
-**Multi-turn conversation context** — Incorporating previous chat messages in the retrieval query would enable accurate follow-up questions without re-specifying context.
-
----
-
-## References
-
-Anthropic. (2024). Building effective agents. Retrieved from https://www.anthropic.com/engineering/building-effective-agents
-
-Bommarito, M., and Katz, D. M. (2022). GPT takes the bar exam. *arXiv preprint arXiv:2212.14402*.
-
-Chalkidis, I., Fergadiotis, M., Malakasiotis, P., Aletras, N., and Androutsopoulos, I. (2020). LEGAL-BERT: The Muppets straight out of Law School. *Findings of the Association for Computational Linguistics: EMNLP 2020*, pp. 2898–2904.
-
-Cohere Inc. (2024). Command R: A scalable LLM built for business. Retrieved from https://cohere.com/blog/command-r
-
-Lewis, P., Perez, E., Piktus, A., et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. *Advances in Neural Information Processing Systems*, 33, 9459–9474.
-
-Manor, L., and Li, J. J. (2019). Plain English summarization of contracts. *Proceedings of the Natural Legal Language Processing Workshop 2019*, pp. 1–11.
-
-Yao, S., Zhao, J., Yu, D., et al. (2022). ReAct: Synergizing Reasoning and Acting in Language Models. *The Eleventh International Conference on Learning Representations*.
-
-Zheng, K., Guha, N., Anderson, B. R., Henderson, P., Ho, D. E., and Manning, C. D. (2021). When does pretraining help? Assessing self-supervised learning for law and the CaseHOLD dataset. *Proceedings of the 18th International Conference on Artificial Intelligence and Law*, pp. 159–168.
-
----
 
 ## License
 
